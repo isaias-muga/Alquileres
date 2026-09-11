@@ -1,0 +1,10 @@
+Django==4.2.5
+djangorestframework
+djangorestframework-simplejwt
+python-dotenv
+mysqlclient
+django-cors-headers
+whitenoise
+django-phonenumber-field
+phonenumbers
+gunicorn

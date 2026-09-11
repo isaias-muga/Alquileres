@@ -1,0 +1,23 @@
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+# system dependencies for mysqlclient and netcat
+RUN apt-get update \
+    && apt-get install -y build-essential default-libmysqlclient-dev netcat \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /code/
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+COPY . /code
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8000
+CMD ["/entrypoint.sh"]
